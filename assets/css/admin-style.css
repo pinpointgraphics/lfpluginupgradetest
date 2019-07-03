@@ -1,0 +1,63 @@
+/* Style tab links */
+.LF-tabSection{
+    margin-top: 20px;
+}
+.LF-tablink {
+    background-color: transparent;
+    color: #23282d;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 5px 0px;
+    font-size: 15px;
+    margin-left: 22px;
+}
+.LF-tablink.LF-active{
+    border-bottom: 2px solid #23282d;
+    color: #23282d;
+    font-weight: bold;
+}
+.LF-tablink:hover {
+    border-bottom: 2px solid #23282d;
+    color: #23282d;
+    font-weight: bold;
+}
+.LF-tabcontent {
+    display: none;
+    padding: 20px;
+    transition: all .4s linear;
+    padding-top: 30px;
+}
+.LF-tabcontent.LF-fade{
+    display: block;
+    transition: all .4s linear;
+}
+.LF-form-group label{
+    font-weight: bold;
+    fort-size: 15px
+}
+.LF-msg-account,
+.LF-msg-listing,
+.LF-msg-custom{
+    margin-top: 15px;
+}
+#termsandcondition_ifr{
+    height: 50vh !important;
+}
+.LF-header {
+    width: 100%;
+    text-align: center;
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 10px;
+}
+.options{
+    list-style-type: disc;
+    padding-left: 15px;
+}
+.open>.dropdown-menu{
+	max-height: 250px !important;
+	overflow-y: scroll !important;
+}
+#new_label{margin-top:7px;margin-left:6px;}
