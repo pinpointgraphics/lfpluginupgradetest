@@ -899,7 +899,7 @@ if ($listkey) {
 									Low <input type="radio" class="LF-sort" name="LF-sort" id="asc" value="ASC" '.$ascchecked.'>
 									High <input type="radio" class="LF-sort" name="LF-sort" id="desc" value="DESC" '.$descchecked.'>
 									</div>
-									</div>';
+									</div>&nbsp;';
 							}
 							echo '<div class="clear"></div>';
 							//get column from admin setting
@@ -1016,15 +1016,30 @@ if ($listkey) {
 			</div>
 			<div class="LF-disclaimer"><?php echo LF_get_settings('LF_detail_footer');?></div>
 			<script><?php
+
+					$sort = LF_get_settings('LF_priceOrder');
+	                        		if(!empty($attr['priceorder'])){
+			                                if($attr['priceorder']=='up'){
+                		                        $sort = 'DESC';
+                        	        	}
+                        	        	elseif($attr['priceorder']=='down'){
+                                	        	$sort = 'ASC';
+                                		}
+                        		}
           				$initType='any';
                                         $initLocation='0';
                                         $initsale='0';
                                         $initwaterfront='no';
+					$initpricesort=$sort;
 					$slug = trim(getCurrentPageSlug());
                                         if(!empty($attr['type'])) $initType=$attr['type'];
                                         if(!empty($attr['location'])) $initLocation=$attr['location'];
                                         if(!empty($attr['sale'])) $initsale=$attr['sale'];
-                                        if(!empty($attr['waterfront']) && $attr['waterfront'] == 'yes') $initwaterfront='yes'; ?>
+                                        if(!empty($attr['waterfront']) && $attr['waterfront'] == 'yes') $initwaterfront='yes';?> 
+					if(sessionStorage.getItem("currentPage") != <?php echo '"'.$slug.'"';?>)
+                                        {
+						sessionStorage.clear();
+                                        }
                                          if(sessionStorage.getItem("LF_sale")=="" || sessionStorage.getItem("LF_sale") == null || sessionStorage.getItem("currentPage") != <?php echo '"'.$slug.'"';?>)
 					{
                                         	sessionStorage.setItem("LF_sale", <?php echo '"'.$initsale.'"';?>); 
@@ -1042,9 +1057,13 @@ if ($listkey) {
 					sessionStorage.setItem("LF_municipalities_default", <?php echo '"'.$initLocation.'"';?>);
                                         if(sessionStorage.getItem("LF_waterfront")=="" || sessionStorage.getItem("LF_waterfront") == null || sessionStorage.getItem("currentPage") != <?php echo '"'.$slug.'"';?>)
 					{
-                                        	sessionStorage.setItem("LF_waterfront", <?php echo '"'.$initwaterfront.'"';?>);
+                                        	sessionStorage.setItem("LF_waterfront", <?php echo '"'.$initpricesort.'"';?>);
 					}
-					sessionStorage.setItem("LF_waterfront_default", <?php echo '"'.$initwaterfront.'"';?>);
+					if(sessionStorage.getItem("LF_pricesort")=="" || sessionStorage.getItem("LF_pricesort") == null || sessionStorage.getItem("currentPage") != <?php echo '"'.$slug.'"';?>)
+                                        {
+                                                sessionStorage.setItem("LF_pricesort", <?php echo '"'.$initpricesort.'"';?>);
+                                        }
+					sessionStorage.setItem("LF_pricesort_default", <?php echo '"'.$initpricesort.'"';?>);
 					sessionStorage.setItem("currentPage", <?php echo '"'.$slug.'"';?>);
 			</script>
 		</div>

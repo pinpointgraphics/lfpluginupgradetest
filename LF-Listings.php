@@ -129,6 +129,7 @@ function LF_plugin_on_activation()
                         'meta_value' => 'ASC'
                 )
         );
+	LFUpdateCSS();
 }
 
 function LF_settings_activation_link( $links ) {

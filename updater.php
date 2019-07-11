@@ -240,45 +240,7 @@ class LF_Listings_Plugin_Updater {
 
 		// update the css
 		require_once LF_PLUGIN_DIR.'/inc/functions.php';
-		$pluginData = get_plugin_data(LF_PLUGIN_DIR.'/LF-Listings.php');
-        	$currentVersion = $pluginData['Version'];
-        	$lastVersion= LF_get_settings('last_css_updated_version');
-	        if(empty($lastVersion))
-        	{
-                	$lastVersion = '1.0.5'; // since when we started the css upgrade.
-	                LF_add_settings('last_css_updated_version',$lastVersion);
-			if(empty(LF_get_settings('customCss')))
-			{
-				LF_add_settings('customCss',file_get_contents(plugin_dir_path( __FILE__ ).'versioned_css/1.0.5.css'));
-			}
-        	}
-		file_put_contents(plugin_dir_path( __FILE__ ).'assets/css/style.css',stripslashes_deep(LF_get_settings('customCss')));
-		$digits = explode (".", $lastVersion);
-		$cssDir = plugin_dir_path( __FILE__ ).'versioned_css/';
-		$digits[2]++;
-		for ($digits[0]; $digits[0] <=1; $digits[0]++) {
-        		for ($digits[1]; $digits[1] <=1; $digits[1]++) {
-                		for ($digits[2]; $digits[2] <=25; $digits[2]++) {
-                        		$version = implode('.', $digits);
-	                        	echo $version."\n";
-	        	                $cssFile = $cssDir.$version.".css";
-        	        	        if(file_exists ($cssFile))
-                	        	{
-        	                	        file_put_contents(plugin_dir_path( __FILE__ ).'assets/css/style.css', "\n\n/*----- ".$version." append -----*/\n\n", FILE_APPEND | LOCK_EX);
-                	                	file_put_contents(plugin_dir_path( __FILE__ ).'assets/css/style.css', file_get_contents($cssFile), FILE_APPEND | LOCK_EX);
-	                        	}
-		                        if($currentVersion == $version)
-        		                {
-                		                break 3;
-                        		}
-			       }
-			       $digits[2] = 0;
-		   	}
-			$digits[1] = 0;
-		}
-		LF_add_settings('customCss',file_get_contents(plugin_dir_path( __FILE__ ).'assets/css/style.css'));
-		LF_add_settings('last_css_updated_version', $currentVersion);		
-
+		LFUpdateCSS();
 
 		// Re-activate plugin if needed
 		if ( $this->pluginActivated )

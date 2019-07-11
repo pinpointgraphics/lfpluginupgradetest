@@ -47,6 +47,19 @@ jQuery(document).ready(function() {
 			 jQuery("#LF_sale-0").val(sessionStorage.getItem("LF_sale"));
 			 sessionStorage.setItem("LF_sale", '');
 			}
+		    if(sessionStorage.getItem("LF_pricesort")!="" && sessionStorage.getItem("LF_pricesort") != null ){
+                             var sort = sessionStorage.getItem("LF_pricesort");
+			     if(sort == 'DESC')
+			     {
+				jQuery('#desc-0').prop('checked', true);
+				jQuery('#Bdesc-0').prop('checked', true);
+			     }
+			     else
+			     {
+                                jQuery('#asc-0').prop('checked', true);
+                                jQuery('#Basc-0').prop('checked', true);
+                             }
+                        }
 			if(sessionStorage.getItem("LF_bedroom")!="" && sessionStorage.getItem("LF_bedroom") != null){
 			 jQuery("#LF_bedroom-0").val(sessionStorage.getItem("LF_bedroom"));
 			 sessionStorage.setItem("LF_bedroom", '');
@@ -67,7 +80,7 @@ jQuery(document).ready(function() {
 			
 			if(sessionStorage.getItem("LF_municipalities")!="" && sessionStorage.getItem("LF_municipalities") != null){
 			 var prevMuni = sessionStorage.getItem("LF_municipalities");
-			 if(jQuery('#LF_municipalities-0 option[value='+sessionStorage.getItem("LF_municipalities")+']').length > 0)
+			 if(jQuery('#LF_municipalities-0 option[value="'+sessionStorage.getItem("LF_municipalities")+'"]').length > 0)
                          {
                                 jQuery("#LF_municipalities-0").val(sessionStorage.getItem("LF_municipalities"));
                          }
@@ -95,11 +108,9 @@ jQuery(document).ready(function() {
 			
 			
 			if(sessionStorage.getItem("pageNo")!="" && sessionStorage.getItem("pageNo") != null){
-				 var indexData = jQuery('.LF-pagination>li>a[data-page = '+sessionStorage.getItem("pageNo")+']').closest('.LF-pagination').data('index');
-				 var pageNo = jQuery('.LF-pagination>li>a[data-page = '+sessionStorage.getItem("pageNo")+']').attr('data-page');
-				 $dataID = jQuery('.LF-pagination>li>a[data-page = '+sessionStorage.getItem("pageNo")+']').closest('#listing-'+indexData);
+				jQuery('.LF-pagination>li>a').attr("data-page",sessionStorage.getItem("pageNo"));
+				jQuery('.LF-pagination>li>a').trigger('click');
 				 sessionStorage.setItem("pageNo", '');
-				 LFPagination(indexData,pageNo,$dataID); 
 				 
 			}else {
 			  var tagSearch = jQuery('#search-0').val();
@@ -120,11 +131,7 @@ jQuery(document).ready(function() {
 			
 	 }
 	}, 1000);
-	 
-	
-	
-	
-	
+	 	
 	
     var maxHeight = 0;
 
@@ -215,7 +222,6 @@ jQuery(document).on('click', '.LF-pagination>li>a', function() {
 });
   function LFPagination(indexData,pageNo,$dataID){
    
-
     var main_search = jQuery('#LF_main_search-'+indexData).val();
     var LF_municipalities = jQuery('#LF_municipalities-'+indexData).val();
     var LF_sale = jQuery('#LF_sale-'+indexData).val();
@@ -513,6 +519,8 @@ jQuery(document).on('click', '.LF-sort', function() {
     var LF_per_row = jQuery('#per_row-'+indexData).val();
     var LF_list_per_page = jQuery('#list_per_page-'+indexData).val();
 
+    sessionStorage.setItem("LF_pricesort",LF_sort);
+
     var search, sale, municipalities, bedroom, bathroom, property_Type, priceFrom, priceTo, waterFront, page, LF_sort, defaultoffice, defaultagents, defaultopenhouse,srch,style,ids,pagi,priord,per_row,list_per_page;
 
     var flag = 0;
@@ -776,7 +784,6 @@ jQuery(document).on('click', '.LF-btn-search', function() {
 	sessionStorage.setItem("LF_property_search", LF_property_search);
 	sessionStorage.setItem("LF_pricefrom_search", LF_pricefrom_search);
 	sessionStorage.setItem("LF_priceto_search", LF_priceto_search);
-
 	if(waterfront == 'y' && typeof waterfront !== 'undefined')
         {
                 sessionStorage.setItem("LF_waterfront", "yes");
@@ -1152,10 +1159,21 @@ function resetSearch(){
 			
 			 jQuery("#LF_municipalities-0").val(sessionStorage.getItem("LF_municipalities_default"));
 			 sessionStorage.setItem("LF_municipalities", '');
+
+			if(sessionStorage.getItem("LF_pricesort_default") === "DESC")
+                             {
+                                jQuery('#desc-0').prop('checked', true);
+                                jQuery('#Bdesc-0').prop('checked', true);
+                             }
+			     else
+                             {
+                                jQuery('#asc-0').prop('checked', true);
+                                jQuery('#Basc-0').prop('checked', true);
+                             }
 			 
 			 setTimeout(function(){
              jQuery('#listing-0 .LF-btn-search').trigger('click');
-			 },2000);
+			 },10);
 }
 jQuery(document).on('click','.btn_close_model',function(){
     jQuery.ajax({
