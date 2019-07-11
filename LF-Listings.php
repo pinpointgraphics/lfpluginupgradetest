@@ -85,15 +85,6 @@ function LF_plugin_on_activation()
 			'meta_value' => stripslashes_deep($termsandcondition)
 		)
 	);
-	$stylesheetUrl = plugin_dir_path( __FILE__ ).'assets/css/style.css';
-	$stylesheet = stripslashes_deep(file_get_contents($stylesheetUrl));
-	$wpdb->insert(
-		$table_name,
-		array(
-			'meta_key' => 'customCss',
-			'meta_value' => $stylesheet
-		)
-	);
 	$wpdb->insert(
 		$table_name,
 		array(
